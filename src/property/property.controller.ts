@@ -13,7 +13,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
-import { IdParamDto } from './dto/idParam.dto';
 import { ParseIdPipe } from './pipes/parseIdpipe';
 import { HeadersDto } from './dto/headers.dto';
 import { RequestHeader } from './pipes/request-header';
@@ -21,25 +20,24 @@ import { PropertyService } from './property.service';
 
 @Controller('property')
 export class PropertyController {
-
-    constructor(private propertyService: PropertyService) {}
+  constructor(private propertyService: PropertyService) {}
 
   @Get()
   findAll() {
-    this.propertyService.findAll();
+    return this.propertyService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id, @Query('sort', ParseBoolPipe) sort) {
-    this.propertyService.findOne();
+  findOne(@Param('id', ParseIntPipe) id) {
+    return this.propertyService.findOne(id);
   }
 
   @Post()
   create(
     @Body()
-    body: CreatePropertyDto,
+    dto: CreatePropertyDto,
   ) {
-    this.propertyService.create();
+    this.propertyService.create(dto);
   }
 
   @Patch(':id')
