@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Property } from 'src/entities/property.entity';
 import { Repository } from 'typeorm';
 import { CreatePropertyDto } from './dto/createProperty.dto';
+import { UpdatePropertyDto } from './dto/updateProperty.dto';
 
 @Injectable()
 export class PropertyService {
@@ -17,8 +18,8 @@ export class PropertyService {
     async findOne(id: number) {
         const property = await this.propertyRepo.findOne({
             where: {
-                id
-            }
+                id,
+            },
         });
         if (!property) {
             throw new NotFoundException();
@@ -31,7 +32,11 @@ export class PropertyService {
         return await this.propertyRepo.save(dto);
     }
 
-    update() { }
+    async update(id: number, dto: UpdatePropertyDto) {
+        return await this.propertyRepo.update({ id }, dto);
+    }
 
-    delete() { }
-}
+    async delete(id: number) {
+        return await this.propertyRepo.delete(id)
+     }
+} 

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Headers,
   Param,
@@ -17,6 +18,7 @@ import { ParseIdPipe } from './pipes/parseIdpipe';
 import { HeadersDto } from './dto/headers.dto';
 import { RequestHeader } from './pipes/request-header';
 import { PropertyService } from './property.service';
+import { UpdatePropertyDto } from './dto/updateProperty.dto';
 
 @Controller('property')
 export class PropertyController {
@@ -37,19 +39,25 @@ export class PropertyController {
     @Body()
     dto: CreatePropertyDto,
   ) {
-    this.propertyService.create(dto);
+    return this.propertyService.create(dto);
   }
 
   @Patch(':id')
   update(
     @Param('id', ParseIdPipe) id,
     @Body()
-    body: CreatePropertyDto,
+    body: UpdatePropertyDto,
     @RequestHeader(
       new ValidationPipe({ whitelist: true, validateCustomDecorators: true }),
     )
     header: HeadersDto,
   ) {
-    this.propertyService.update();
+    return this.propertyService.update(id, body);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id) {
+     this.propertyService.delete(id)
+     return { message: `Property with ID ${id} deleted successfully` };
   }
 }
