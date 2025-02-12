@@ -1,26 +1,38 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, Entity } from 'typeorm';
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToMany,
+  Entity,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Property } from './property.entity';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    firstName: string;
+  @Column()
+  firstName: string;
 
-    @Column()
-    lastName: string;
+  @Column()
+  lastName: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column({ nullable: true })
-    avatarUrl: string;
+  @Column({ nullable: true })
+  avatarUrl: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @OneToMany(()=> Property, (property)=>property.user)
-    properties: Property[]
+  @OneToMany(() => Property, (property) => property.user)
+  properties: Property[];
+
+  @ManyToMany(() => Property, (property) => property.likedBy)
+  @JoinTable({ name: 'user_liked_properties' })
+  likedProperties: Property[];
 }
