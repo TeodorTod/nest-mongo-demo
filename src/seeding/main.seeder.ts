@@ -3,8 +3,7 @@ import { Property } from '../entities/property.entity';
 import { PropertyFeature } from '../entities/propertyFeature.entity';
 import { PropertyType } from '../entities/propertyType.entity';
 import { User } from '../entities/user.entity';
-import { DataSource } from "typeorm/browser";
-
+import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
 export class MainSeeder implements Seeder {

@@ -6,6 +6,7 @@ import { PropertyFeatureFactory } from './propertyFeature.factory';
 import { MainSeeder } from './main.seeder';
 import { pgConfig } from '../../dbConfig';
 
+
 const options: DataSourceOptions & SeederOptions = {
   ...pgConfig,
   factories: [PropertyFactory, UserFactory, PropertyFeatureFactory],
