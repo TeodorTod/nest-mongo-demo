@@ -59,6 +59,6 @@ export class PropertyController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id) {
      this.propertyService.delete(id)
-     return { message: `Property with ID ${id} deleted successfully` };
+     return { message: `Property with ID ${id} deleted successfully!` };
   }
 }
